@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/patient-dash-emr/static/css/main.6eb13108.css",
-    "main.js": "/patient-dash-emr/static/js/main.2811c3f3.js",
+    "main.js": "/patient-dash-emr/static/js/main.378d3fef.js",
     "static/media/SEGA.woff": "/patient-dash-emr/static/media/SEGA.47b4bfa94ef243af4a5b.woff",
     "index.html": "/patient-dash-emr/index.html",
     "main.6eb13108.css.map": "/patient-dash-emr/static/css/main.6eb13108.css.map",
-    "main.2811c3f3.js.map": "/patient-dash-emr/static/js/main.2811c3f3.js.map"
+    "main.378d3fef.js.map": "/patient-dash-emr/static/js/main.378d3fef.js.map"
   },
   "entrypoints": [
     "static/css/main.6eb13108.css",
-    "static/js/main.2811c3f3.js"
+    "static/js/main.378d3fef.js"
   ]
 }
