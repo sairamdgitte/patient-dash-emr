@@ -23,8 +23,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          REACT_APP_HF_TOKEN: ${{ secrets.REACT_APP_HF_TOKEN }}
 
       - name: Copy 404.html for SPA routing
         run: cp build/index.html build/404.html
