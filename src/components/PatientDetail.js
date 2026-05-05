@@ -116,7 +116,7 @@ const PatientDetail = ({ patients }) => {
       `;
 
       const response = await fetch(
-        "https://sairam17-patient-summary-api.hf.space/call/predict",
+        "https://sairam17-patient-summary-api.hf.space/gradio_api/call/predict",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -126,12 +126,13 @@ const PatientDetail = ({ patients }) => {
       const { event_id } = await response.json();
 
       const resultResponse = await fetch(
-        `https://sairam17-patient-summary-api.hf.space/call/predict/${event_id}`
+        `https://sairam17-patient-summary-api.hf.space/gradio_api/call/predict/${event_id}`
       );
       const text = await resultResponse.text();
       const lines = text.split('\n').filter(l => l.startsWith('data:'));
       const lastData = JSON.parse(lines[lines.length - 1].replace('data: ', ''));
       setAiSummary(lastData[0]);
+      
     } catch (error) {
       console.error('Error generating AI summary:', error);
       setAiSummary("Unable to generate AI summary at this time.");
