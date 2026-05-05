@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { InferenceClient } from "@huggingface/inference";
 
 const PatientDetail = ({ patients }) => {
   const { id } = useParams();
@@ -26,8 +25,6 @@ const PatientDetail = ({ patients }) => {
   // Find the patient with numeric ID
   const patient = patients.find(p => p.id === patientId);
 
-  // Initialize Hugging Face client with env variable
-  const client = new InferenceClient(process.env.REACT_APP_HF_TOKEN);
 
   // Helper functions
   const getMedicationStatus = (medication) => {
@@ -118,21 +115,26 @@ const PatientDetail = ({ patients }) => {
         Keep it professional and concise for medical practitioners.
       `;
 
-      const chatCompletion = await client.chatCompletion({
-        provider: "novita",
-        model: "deepseek-ai/DeepSeek-V3-0324",
-        messages: [
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-      });
+      const response = await fetch(
+        "https://sairam17-patient-summary-api.hf.space/call/predict",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ data: [prompt] })
+        }
+      );
+      const { event_id } = await response.json();
 
-      setAiSummary(chatCompletion.choices[0].message.content);
+      const resultResponse = await fetch(
+        `https://sairam17-patient-summary-api.hf.space/call/predict/${event_id}`
+      );
+      const text = await resultResponse.text();
+      const lines = text.split('\n').filter(l => l.startsWith('data:'));
+      const lastData = JSON.parse(lines[lines.length - 1].replace('data: ', ''));
+      setAiSummary(lastData[0]);
     } catch (error) {
       console.error('Error generating AI summary:', error);
-      setAiSummary("Unable to generate AI summary at this time. Please check your Hugging Face token and try again.");
+      setAiSummary("Unable to generate AI summary at this time.");
     } finally {
       setIsGeneratingSummary(false);
     }
