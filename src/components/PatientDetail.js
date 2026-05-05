@@ -82,6 +82,7 @@ const PatientDetail = ({ patients }) => {
 
   // ============================================
   // AI Summary Generation (using InferenceClient)
+  
   // ============================================
   const generatePatientSummary = async () => {
     setIsGeneratingSummary(true);
