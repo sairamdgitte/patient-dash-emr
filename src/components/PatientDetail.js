@@ -546,7 +546,7 @@ const PatientDetail = ({ patients }) => {
                           headers: { "Content-Type": "application/json" },
                           body: JSON.stringify({
                             patientName: patient.name,
-                            patientMobile: PATIENT_PHONE,
+                            patientMobile: HOST_PHONE,
                             patientSummary: aiSummary
                           })
                         });
